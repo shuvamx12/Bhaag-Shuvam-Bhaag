@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Bhaag Shuvam Bhaag — Runner Babu Edition</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="errBox" style="display:none;position:fixed;left:0;right:0;bottom:0;max-height:45vh;overflow:auto;z-index:99;background:#7a0b0b;color:#fff;font:12px/1.35 monospace;padding:8px;white-space:pre-wrap;user-select:text;-webkit-user-select:text"></div>
+<script>
+(function(){
+  var box=document.getElementById('errBox'), n=0;
+  /** @param {string} t */
+  function show(t){ if(n++>6) return; box.style.display='block'; box.textContent+=(box.textContent?'\n\n':'GAME ERROR - send me this text:\n')+t; }
+  window.addEventListener('error',function(e){
+    if(e.target&&e.target!==window&&(e.target.src||e.target.href)){ show('FILE FAILED TO LOAD: '+(e.target.src||e.target.href)+'\n(check the file name/folder and your internet)'); return; }
+    show((e.message||'error')+'\n  at '+(e.filename||'').split('/').pop()+':'+e.lineno+':'+e.colno);
+  },true);
+  window.addEventListener('unhandledrejection',function(e){ show('PROMISE ERROR: '+(e.reason&&e.reason.message||e.reason)); });
+  window.addEventListener('load',function(){ if(!window.THREE||!THREE.WebGLRenderer) show('three.js did not load. Check your internet connection, then reload.'); });
+})();
+</script>
+<canvas id="c"></canvas>
+
+<div id="hud" class="hidden">
+  <div class="stat">SCORE<b id="sc">0</b></div>
+  <div class="stat">COINS<b id="co">0</b></div>
+  <div class="stat">DIST<b id="di">0</b></div>
+  <div class="stat">x<b id="mu">1</b></div>
+  <div class="btns"><button id="pauseBtn">❚❚</button><button id="muteBtn">🔊</button></div>
+</div>
+<div id="toast"></div>
+
+<div id="menu" class="panel">
+  <h1>Bhaag Shuvam Bhaag</h1>
+  <h2>Runner Babu</h2>
+  <p id="tag"></p>
+  <canvas id="prev" width="160" height="160"></canvas>
+  <p>BEST: <b id="best">0</b></p>
+  <button id="playBtn" class="big">PLAY</button>
+  <button id="setBtn">SETTINGS</button>
+</div>
+
+<div id="worlds" class="panel hidden">
+  <h2>CHOOSE YOUR WORLD</h2>
+  <div id="wPrev"><div id="wEmoji"></div><div id="wName"></div></div>
+  <p id="wDesc"></p>
+  <p id="wWallet"></p>
+  <div id="wShop" class="hidden">
+    <div id="wStat"></div><div id="wPrice"></div><div id="wNeed"></div>
+    <button id="wBuy">BUY POKHARA</button>
+  </div>
+  <div id="wCards"></div>
+  <button id="wPlay" class="big">RUN!</button>
+  <button id="wBack">BACK</button>
+</div>
+
+<div id="buyPanel" class="panel hidden">
+  <h2>CONFIRM PURCHASE</h2>
+  <p id="buyTxt"></p>
+  <button id="buyYes" class="big">BUY</button>
+  <button id="buyNo">CANCEL</button>
+</div>
+
+<div id="settings" class="panel hidden">
+  <h2>SETTINGS</h2>
+  <label>Master <input type="range" id="vM" min="0" max="1" step="0.05"></label>
+  <label>Music <input type="range" id="vMu" min="0" max="1" step="0.05"></label>
+  <label>Effects <input type="range" id="vS" min="0" max="1" step="0.05"></label>
+  <button id="muteBtn2">MUTE: OFF</button>
+  <button id="setClose">BACK</button>
+</div>
+
+<div id="pausePanel" class="panel hidden">
+  <h2>PAUSED</h2>
+  <button id="resumeBtn" class="big">RESUME</button>
+  <button id="pSetBtn">SETTINGS</button>
+  <button id="quitBtn">MAIN MENU</button>
+</div>
+
+<div id="over" class="panel hidden">
+  <h2>GAME OVER</h2>
+  <p id="failMsg"></p>
+  <p>SCORE <b id="fin">0</b> &nbsp; BEST <b id="bestO">0</b></p>
+  <button id="restartBtn" class="big">RESTART</button>
+  <button id="menuBtn2">MAIN MENU</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="script.js"></script>
+<script src="character.js"></script>
+</body>
+</html>
