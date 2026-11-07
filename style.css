@@ -1,0 +1,43 @@
+:root{--ink:#2b1d14;--cream:#fff3dc;--chili:#d62828;--saffron:#f77f00;--shadow:0 4px 0 rgba(0,0,0,.35)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{margin:0;height:100%;overflow:hidden;background:#f2c9a0;touch-action:none;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink)}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+.hidden{display:none!important}
+button{font:inherit;font-weight:800;letter-spacing:1px;border:3px solid var(--ink);border-radius:14px;background:var(--cream);color:var(--ink);padding:12px 22px;min-height:52px;box-shadow:var(--shadow);cursor:pointer;transition:transform .1s}
+button:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.35)}
+button.big{background:var(--chili);color:#fff;font-size:1.4rem;min-width:200px}
+.panel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,380px);max-height:94vh;overflow:auto;padding:20px;text-align:center;background:rgba(255,243,220,.93);border:4px solid var(--ink);border-radius:22px;box-shadow:0 8px 0 rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;align-items:center;animation:pop .25s ease-out}
+@keyframes pop{from{transform:translate(-50%,-46%) scale(.94);opacity:0}}
+h1{margin:0;font-size:2rem;color:var(--chili);text-shadow:2px 2px 0 var(--saffron)}
+h2{margin:0;font-size:1.2rem;letter-spacing:2px}
+p{margin:0}
+#tag{font-style:italic;font-size:.95rem}
+#prev{width:120px;height:120px;border-radius:50%;border:4px solid var(--ink);background:#c98f64}
+label{display:flex;width:100%;justify-content:space-between;align-items:center;gap:10px;font-weight:700}
+input[type=range]{width:60%;height:30px;accent-color:var(--chili)}
+#hud{position:fixed;left:0;right:0;top:0;display:flex;gap:8px;padding:max(8px,env(safe-area-inset-top)) 10px 0;align-items:flex-start;pointer-events:none}
+.stat{background:rgba(255,243,220,.9);border:3px solid var(--ink);border-radius:12px;padding:4px 10px;font-size:.62rem;font-weight:800;line-height:1.1}
+.stat b{display:block;font-size:1.1rem}
+.btns{margin-left:auto;display:flex;gap:8px;pointer-events:auto}
+.btns button{padding:6px 12px;min-height:48px;min-width:48px}
+#toast{position:fixed;left:50%;top:22%;transform:translateX(-50%) scale(.8);background:var(--saffron);color:#fff;font-weight:800;border:3px solid var(--ink);border-radius:14px;padding:10px 16px;max-width:90vw;text-align:center;opacity:0;pointer-events:none;transition:all .2s;box-shadow:var(--shadow)}
+#toast.on{opacity:1;transform:translateX(-50%) scale(1)}
+
+/* ---- World select ---- */
+#worlds{width:min(94vw,420px);padding:16px;gap:8px}
+#wPrev{width:100%;height:140px;border:4px solid var(--ink);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+#wEmoji{font-size:3rem;line-height:1}
+#wName{font-size:1.2rem;font-weight:800}
+#wDesc{font-size:.85rem;min-height:2.6em}
+#wCards{display:flex;gap:8px;width:100%;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x mandatory;touch-action:pan-x}
+.wc{flex:0 0 auto;min-width:78px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;scroll-snap-align:center;font-size:.62rem;letter-spacing:0}
+.wc i{font-style:normal;font-size:1.6rem;line-height:1.2}
+.wc.sel{background:var(--saffron);color:#fff;transform:translateY(-3px)}
+
+/* ---- Momo shop ---- */
+button:disabled{opacity:.45;box-shadow:none;cursor:not-allowed}
+.wc .wt{font-size:.6rem;font-weight:800;margin-top:2px}
+#wWallet{font-weight:800}
+#wShop{width:100%;border:3px solid var(--ink);border-radius:14px;padding:8px;background:#fff8e8;display:flex;flex-direction:column;gap:4px;align-items:center;font-weight:800;font-size:.85rem}
+#wShop button{width:100%}
+@media (max-height:700px){#wPrev{height:90px}}
